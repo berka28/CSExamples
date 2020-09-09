@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF1_ContactList.Models;
 
 namespace WPF1_ContactList
 {
@@ -24,5 +25,37 @@ namespace WPF1_ContactList
         {
             InitializeComponent();
         }
+
+        private void ClearFields()
+        {
+            tbFirstName.Text = "";
+            tbLastName.Text = "";
+        }
+
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            var contact = new Contact(tbFirstName.Text, tbLastName.Text);
+
+            try
+            {
+                lbContactList.Items.Add(contact.FullName);
+            }
+            catch { }
+            finally
+            {
+                ClearFields();
+            }
+        }
+
+        private void btnRemove_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                lbContactList.Items.Remove(lbContactList.Items[lbContactList.SelectedIndex]);
+            }
+            catch { }
+        }
+
     }
 }
